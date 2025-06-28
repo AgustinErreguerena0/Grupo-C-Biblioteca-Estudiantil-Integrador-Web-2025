@@ -17,23 +17,23 @@
   </header>
   
   <div class="container sidebar-layout">
-    <aside class="sidebar">
-      <ul class="sidebar-menu">
-        <li class="sidebar-item">
-          <a href="inicio.html" class="sidebar-link">Inicio</a>
-        </li>
-        <li class="sidebar-item">
-          <a href="miembros.html" class="sidebar-link">Miembros</a>
-        </li>
-        <li class="sidebar-item">
-          <a href="circulacion.html" class="sidebar-link">Circulación</a>
-        </li>
-        <li class="sidebar-item">
-          <a href="catalogo.html" class="sidebar-link active">Catálogo</a>
-        </li>
-      </ul>
-    </aside>
-    
+      <aside class="sidebar">
+    <ul class="sidebar-menu">
+      <li class="sidebar-item">
+        <a href="{{ url('bibliotecario/inicio') }}" class="sidebar-link">Inicio</a>
+      </li>
+      <li class="sidebar-item">
+        <a href="{{ url('bibliotecario/miembros') }}" class="sidebar-link">Miembros</a>
+      </li>
+      <li class="sidebar-item">
+        <a href="{{ url('bibliotecario/circulacion') }}" class="sidebar-link">Circulación</a>
+      </li>
+      <li class="sidebar-item">
+        <a href="{{ url('bibliotecario/catalogo') }}" class="sidebar-link">Catálogo</a>
+      </li>
+    </ul>
+  </aside>
+  
     <main class="main">
       <h1 class="section-title">Gestión de Ejemplares</h1>
       
