@@ -2,23 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Bibliotecario extends Model
+class Bibliotecario extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    // Nombre de la tabla en la base de datos
-    protected $table = 'Bibliotecario';
-    // Clave primaria de la tabla
-    protected $primaryKey = 'id_bibliotecario';
-    // Desactivar timestamps automáticos (created_at, updated_at) ya que no están en la tabla
+    protected $table = 'bibliotecarios';
+    protected $primaryKey = 'id_administrador';
     public $timestamps = false;
 
-    // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'nombre',
         'apellido',
+        'contraseña',
     ];
+
+    protected $hidden = ['contraseña'];
+
+    public function catalogos()
+    {
+        return $this->hasMany(Catalogo::class, 'id_administrador');
+    }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Miembro extends Model
+class Miembro extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
-    protected $table = 'Miembro';
+    protected $table = 'miembros';
     protected $primaryKey = 'id_miembro';
     public $timestamps = false;
 
@@ -22,12 +23,11 @@ class Miembro extends Model
         'direccion',
         'tipo_miembro',
         'usuario',
+        'contraseña',
     ];
 
-    /**
-     * Relación uno a muchos con Prestamo.
-     * Un Miembro puede tener muchos Prestamos.
-     */
+    protected $hidden = ['contraseña'];
+
     public function prestamos()
     {
         return $this->hasMany(Prestamo::class, 'id_miembro');
