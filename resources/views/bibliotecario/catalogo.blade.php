@@ -17,7 +17,7 @@
     </header>
 
     <div class="container sidebar-layout">
-        <aside class="sidebar">
+     <aside class="sidebar">
     <ul class="sidebar-menu">
       <li class="sidebar-item">
         <a href="{{ url('bibliotecario/inicio') }}" class="sidebar-link">Inicio</a>
