@@ -11,7 +11,7 @@ class Catalogo extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'title', 'subject', 'description', 'date', 'type',
+        'title', 'description', 'date', 'type',
         'identifier', 'language', 'format', 'rights',
         'id_bibliotecario', 'id_publisher'
     ];

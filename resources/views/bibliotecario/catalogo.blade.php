@@ -58,9 +58,9 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Título</th>
+                <th>Title</th>
                 <th>Creador</th>
-                <th>Asunto</th>
+                <th>Subject</th>
                 <th>Descripción</th>
                 <th>Editor</th>
                 <th>Fecha</th>

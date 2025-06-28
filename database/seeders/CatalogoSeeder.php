@@ -10,7 +10,6 @@ class CatalogoSeeder extends Seeder
     {
         $catalogo1 = Catalogo::create([
             'title' => 'Cien años de soledad',
-            'subject' => 'Novela',
             'description' => 'Obra maestra del realismo mágico',
             'date' => '1967-05-30',
             'type' => 'Libro',
@@ -27,7 +26,6 @@ class CatalogoSeeder extends Seeder
 
         $catalogo2 = Catalogo::create([
             'title' => 'Harry Potter y la piedra filosofal',
-            'subject' => 'Novela juvenil',
             'description' => 'Inicio de la saga mágica',
             'date' => '1997-06-26',
             'type' => 'Libro',
