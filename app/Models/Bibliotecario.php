@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Administrador extends Model
+class Bibliotecario extends Model
 {
     use HasFactory;
 
     // Nombre de la tabla en la base de datos
-    protected $table = 'Administrador';
+    protected $table = 'Bibliotecario';
     // Clave primaria de la tabla
-    protected $primaryKey = 'id_administrador';
+    protected $primaryKey = 'id_bibliotecario';
     // Desactivar timestamps automáticos (created_at, updated_at) ya que no están en la tabla
     public $timestamps = false;
 
