@@ -11,7 +11,7 @@ class Bibliotecario extends Authenticatable
     use HasFactory, Notifiable;
 
     protected $table = 'bibliotecarios';
-    protected $primaryKey = 'id_administrador';
+    protected $primaryKey = 'id_bibliotecario';
     public $timestamps = false;
 
     protected $fillable = [
@@ -24,6 +24,6 @@ class Bibliotecario extends Authenticatable
 
     public function catalogos()
     {
-        return $this->hasMany(Catalogo::class, 'id_administrador');
+        return $this->hasMany(Catalogo::class, 'id_bibliotecario');
     }
 }

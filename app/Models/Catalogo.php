@@ -12,13 +12,13 @@ class Catalogo extends Model
 
     protected $fillable = [
         'title', 'subject', 'description', 'date', 'type',
-        'identifier', 'lenguaje', 'format', 'rights',
-        'id_administrador', 'id_publisher'
+        'identifier', 'language', 'format', 'rights',
+        'id_bibliotecario', 'id_publisher'
     ];
 
     public function bibliotecario()
     {
-        return $this->belongsTo(Bibliotecario::class, 'id_administrador');
+        return $this->belongsTo(Bibliotecario::class, 'id_bibliotecario');
     }
 
     public function publisher()
