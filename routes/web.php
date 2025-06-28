@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\DB;
 // Página principal
 Route::get('/', function () {
     return view('index');
@@ -25,4 +25,14 @@ Route::prefix('bibliotecario')->group(function () {
 Route::prefix('miembro')->group(function () {
     Route::view('inicio', 'miembro.inicio');
     Route::view('detalle-catalogo', 'miembro.detalle-catalogo');
+});
+
+Route::get('probar-conexion', function(){
+    try{
+        DB::connection()->getPdo();
+        return "Conexión a la base de datos exitosa";
+    }catch(\Exception $e){
+        return "No se pudo conectar a la base de datos <br> Error: ".$e->getMessage();
+    }
+
 });
