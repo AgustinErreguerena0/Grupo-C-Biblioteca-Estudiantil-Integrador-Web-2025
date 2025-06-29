@@ -11,13 +11,13 @@ class Ejemplar extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id_catalogo', 'ubicacion', 'procedencia', 
-        'estado_material', 'disponibilidad', 'id_proveedor'
+        'id_ejemplar','id_publico', 'ubicacion', 'procedencia', 
+        'estado_material', 'disponibilidad', 'id_catalogo','id_proveedor'
     ];
 
     public function catalogo()
     {
-        return $this->belongsTo(Catalogo::class, 'id_catalogo');
+        return $this->belongsTo(Catalogo::class, 'id_ejemplar');
     }
 
     public function proveedor()
