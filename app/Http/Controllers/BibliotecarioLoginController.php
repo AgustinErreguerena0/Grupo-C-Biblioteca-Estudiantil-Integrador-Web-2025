@@ -49,7 +49,7 @@ class BibliotecarioLoginController extends Controller
 
         // Si la autenticación falla (credenciales incorrectas), redirigir de vuelta al formulario con un error
         return back()->withErrors([
-            'loginError' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
+            'loginError' => 'Se ha ingresado incorrectamente el usuario o la contraseña.',
         ])->onlyInput('usuario');
     }
 
