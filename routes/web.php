@@ -4,14 +4,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\BibliotecarioController;
 use App\Http\Controllers\MiembroController;
-// Página principal
-Route::get('/', function () {
-    return view('index');
-});
+use App\Http\Controllers\BibliotecarioLoginController;
+// Página principal (formulario de inicio de sesión)
+Route::get('/', [BibliotecarioLoginController::class, 'showLoginForm'])->name('bibliotecario.login.form');
+Route::post('/login', [BibliotecarioLoginController::class, 'login'])->name('bibliotecario.login');
+Route::post('/logout', [BibliotecarioLoginController::class, 'logout'])->name('logout');
 
 // Bibliotecario
 Route::prefix('bibliotecario')->group(function () {
-    Route::view('inicio', 'bibliotecario.inicio');
+    Route::view('inicio', 'bibliotecario.inicio')->name('bibliotecario.inicio');
     Route::view('alta-miembro', 'bibliotecario.alta-miembro');
     Route::view('circulacion', 'bibliotecario.circulacion');
     Route::view('devolucion', 'bibliotecario.devolucion');

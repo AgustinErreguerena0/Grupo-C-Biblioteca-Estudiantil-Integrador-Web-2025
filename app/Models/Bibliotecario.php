@@ -31,4 +31,9 @@ class Bibliotecario extends Authenticatable
     {
         return $this->hasMany(Catalogo::class, 'id_bibliotecario');
     }
+    
+    public function getAuthPassword()
+    {
+        return $this->contraseña;
+    }
 }

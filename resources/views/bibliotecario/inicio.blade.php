@@ -10,9 +10,14 @@
   <header class="header">
     <div class="container header-content">
       <div class="logo">Biblioteca Estudiantil</div>
-      <nav class="nav">
-        <a href="#" class="nav-link">Cerrar Sesión</a>
-      </nav>
+     <nav class="nav">
+  <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer;">
+      Cerrar Sesión
+    </button>
+  </form>
+</nav>
     </div>
   </header>
   
@@ -35,7 +40,7 @@
   </aside>
   
     <main class="main">
-      <h1 class="section-title">Bienvenido "Nombre del bibliotecario"</h1>
+      <h1 class="section-title">Bienvenido</h1>
       
       <div class="card">
         <h2>Resumen del sistema</h2>
