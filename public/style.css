@@ -464,6 +464,52 @@ select.form-control:focus {
   border-collapse: collapse;
 }
 
+/* Barra de búsqueda */
+/* Las reglas anteriores de .search-bar que aplicaban 'display: flex'
+   ya no son necesarias si el formulario es el contenedor flex directo.
+   Si `search-bar` era un div contenedor, ahora puede ser redundante o
+   solo servir como un wrapper sin estilos flex. */
+
+/* Estilos para el formulario de búsqueda (la nueva clase 'search-form') */
+.search-form { /* Clase aplicada directamente al <form> */
+  display: flex; /* Convierte el formulario en un contenedor flex */
+  gap: 0.5rem;   /* Espacio entre el input y el botón */
+  align-items: center; /* Alinea verticalmente los elementos al centro */
+  width: 100%; /* Asegura que el formulario ocupe todo el ancho disponible del .card */
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.search-form .form-control {
+  flex: 1; /* El input crece para llenar el espacio disponible */
+  min-width: 150px; /* Evita que el input sea demasiado pequeño */
+  /* max-width: 100%; (ya implícito con flex: 1 si el contenedor tiene width: 100%) */
+}
+
+.search-form .btn {
+  flex-shrink: 0; /* Evita que el botón se encoja */
+}
+
+/* El resto de tu CSS para .form-control, .btn, .btn-primary, etc., ya está bien
+   y se aplicará a los elementos dentro del formulario. */
+
+/* Las siguientes reglas ya existían y son correctas para botones y elementos flex: */
+.align-items-center { /* */
+  align-items: center;
+}
+
+.btn { /* */
+  align-self: center;
+}
+
+.btn-primary, /* */
+.btn.btn-primary,
+.d-flex .btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+.btn-primary:hover { /* */
+  background-color: var(--dark);
+}
 /* Media Queries */
 @media screen and (min-width: 1920px) {
   .table {
@@ -569,3 +615,4 @@ select.form-control:focus {
     margin-left: 0;
   }
 }
+

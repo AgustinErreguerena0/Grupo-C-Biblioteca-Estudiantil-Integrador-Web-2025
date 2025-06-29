@@ -1,138 +1,131 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Biblioteca - Catálogo</title>
-    <link rel="stylesheet" href="../style.css" />
-  </head>
-  <body>
-    <header class="header">
-      <div class="container header-content">
-        <div class="logo">Biblioteca Estudiantil</div>
-        <nav class="nav">
-          <a href="#" class="nav-link">Cerrar Sesión</a>
-        </nav>
-      </div>
-    </header>
 
-    <div class="container sidebar-layout">
-     <aside class="sidebar">
-    <ul class="sidebar-menu">
-      <li class="sidebar-item">
-        <a href="{{ url('bibliotecario/inicio') }}" class="sidebar-link">Inicio</a>
-      </li>
-      <li class="sidebar-item">
-        <a href="{{ url('bibliotecario/miembros') }}" class="sidebar-link">Miembros</a>
-      </li>
-      <li class="sidebar-item">
-        <a href="{{ url('bibliotecario/circulacion') }}" class="sidebar-link">Circulación</a>
-      </li>
-      <li class="sidebar-item">
-        <a href="{{ url('bibliotecario/catalogo') }}" class="sidebar-link">Catálogo</a>
-      </li>
-    </ul>
-  </aside>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biblioteca - Catálogo</title>
+<link rel="stylesheet" href="{{ asset('style.css') }}">
+</head>
 
+<body>
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo">Biblioteca Estudiantil</div>
+      <nav class="nav">
+        <a href="#" class="nav-link">Cerrar Sesión</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container sidebar-layout">
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item">
+          <a href="{{ url('bibliotecario/inicio') }}" class="sidebar-link">Inicio</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="{{ url('bibliotecario/miembros') }}" class="sidebar-link">Miembros</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="{{ url('bibliotecario/circulacion') }}" class="sidebar-link">Circulación</a>
+        </li>
+        <li class="sidebar-item">
+          <a href="{{ url('bibliotecario/catalogo') }}" class="sidebar-link">Catálogo</a>
+        </li>
+      </ul>
+    </aside>
+
+    <main class="main">
       <main class="main">
         <div class="d-flex justify-content-between mb-3">
           <h1 class="section-title">Catálogo</h1>
-          <a href="alta-catalogo.html" class="btn btn-primary"
-            >Nuevo catálogo</a
-          >
+          <a href="{{ url('bibliotecario/alta-catalogo') }}" class="btn btn-primary">Nuevo catálogo</a>
         </div>
-
         <div class="card">
-          <!-- Nuevo contenedor .search-bar -->
-          <div class="search-bar">
+          {{-- El formulario ahora es el contenedor flex --}}
+          <form action="{{ url('bibliotecario/catalogo') }}" method="GET" class="search-form">
             <input
               type="text"
               class="form-control"
-              placeholder="Buscar por title o creator"
-            />
-
-            <button class="btn btn-primary">Buscar</button>
-          </div>
+              placeholder="Buscar por title, creator, subject o publisher" {{-- Placeholder mejorado --}}
+              name="search_query" {{-- Nombre necesario para el controlador --}}
+              value="{{ request('search_query') }}" {{-- Mantiene el término de búsqueda --}} />
+            <button type="submit" class="btn btn-primary">Buscar</button>
+          </form>
         </div>
+
         <div class="card">
           <table class="table">
             <thead>
               <tr>
                 <th>Title</th>
-                <th>Creador</th>
+                <th>Creator</th>
                 <th>Subject</th>
-                <th>Descripción</th>
-                <th>Editor</th>
-                <th>Fecha</th>
-                <th>Tipo</th>
-                <th>Identificador</th>
-                <th>Idioma</th>
-                <th>Formato</th>
-                <th>Derechos</th>
+                <th>Description</th>
+                <th>Publisher</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Identifier</th>
+                <th>Language</th>
+                <th>Format</th>
+                <th>Rights</th>
                 <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
+              @forelse($catalogItems as $item)
               <tr>
-                <td>Historia de la Computación</td>
-                <td>Juan Pérez</td>
-                <td>Computación, Historia</td>
+                <td>{{ $item->title }}</td>
+                {{-- Mostrar los nombres de los creadores separados por coma --}}
                 <td>
-                  Un documento que narra los hitos principales de la
-                  computación.
+                  @foreach($item->creators as $creator)
+                  {{ $creator->creator }}{{ !$loop->last ? ', ' : '' }}
+                  @endforeach
                 </td>
-                <td>Universidad X</td>
-                <td>2025-06-22</td>
-                <td>Texto</td>
-                <td>ISBN 978-3-16-148410-0</td>
-                <td>es</td>
-                <td>PDF</td>
-                <td>CC BY-NC-SA 4.0</td>
+                {{-- Mostrar los nombres de los temas separados por coma --}}
                 <td>
-                  <a href="detalle-catalogo.html" class="icon-btn" title="Ver"
-                    >👁️</a
-                  >
-                  <a href="#" class="icon-btn" title="Modificar">✏️</a>
-                  <a href="#" class="icon-btn" title="Eliminar">🗑️</a>
-                  <a href="ejemplares.html" class="icon-btn" title="Ejemplares"
-                    >📚</a
-                  >
+                  @foreach($item->subjects as $subject)
+                  {{ $subject->subject }}{{ !$loop->last ? ', ' : '' }}
+                  @endforeach
+                </td>
+                <td>{{ $item->description }}</td>
+                {{-- Acceder al nombre de la editorial a través de la relación --}}
+                <td>{{ $item->publisher->publisher ?? 'N/A' }}</td> {{-- Usamos ?? 'N/A' por si no hay publisher asociado --}}
+                <td>{{ $item->date }}</td>
+                <td>{{ $item->type }}</td>
+                <td>{{ $item->identifier }}</td>
+                <td>{{ $item->language }}</td> {{-- Cambiado de 'idioma' a 'language' según tu modelo --}}
+                <td>{{ $item->format }}</td>
+                <td>{{ $item->rights }}</td>
+                <td>
+                  <a href="{{ url('bibliotecario/catalogo/detalle/' . $item->id_catalogo) }}" class="icon-btn" title="Ver">👁️</a>
+                  <a href="{{ url('bibliotecario/catalogo/modificar/' . $item->id_catalogo) }}" class="icon-btn" title="Modificar">✏️</a>
+                  {{-- Para eliminar, es mejor usar un formulario POST o DELETE --}}
+                  <form action="{{ url('bibliotecario/catalogo/eliminar/' . $item->id_catalogo) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE') {{-- Usa el método DELETE para eliminar --}}
+                    <button type="submit" class="icon-btn" title="Eliminar" onclick="return confirm('¿Estás seguro de que quieres eliminar este catálogo?')">🗑️</button>
+                  </form>
+                  <a href="{{ url('bibliotecario/catalogo/ejemplares/' . $item->id_catalogo) }}" class="icon-btn" title="Ejemplares">📚</a>
                 </td>
               </tr>
+              @empty
               <tr>
-                <td>Introducción a la Filosofía</td>
-                <td>Laura Méndez</td>
-                <td>Filosofía, Pensamiento Crítico</td>
-                <td>
-                  Este libro presenta los principales conceptos y corrientes
-                  filosóficos desde la Antigüedad hasta el siglo XX. Ideal para
-                  estudiantes de nivel
-                </td>
-                <td>Editorial Alfachnega</td>
-                <td>2018-03-12</td>
-                <td>Texto impreso</td>
-                <td>ISBN 978-950-556-938-5</td>
-                <td>es</td>
-                <td>400 páginas, tapa blanda, 23 cm x 15 cm</td>
-                <td>
-                  © 2019 Laura Méndez. Prohibida su reproducción sin
-                  autorización
-                </td>
-                <td>
-                  <a href="detalle-catalogo.html" class="icon-btn" title="Ver"
-                    >👁️</a
-                  >
-                  <a href="#" class="icon-btn" title="Modificar">✏️</a>
-                  <a href="#" class="icon-btn" title="Eliminar">🗑️</a>
-                  <a href="ejemplares.html" class="icon-btn" title="Ejemplares"
-                    >📚</a
-                  >
+                <td colspan="12">
+                  @if(request('search_query'))
+                  No se encontraron resultados para "{{ request('search_query') }}".
+                  @else
+                  No hay elementos en el catálogo.
+                  @endif
                 </td>
               </tr>
+              @endforelse
             </tbody>
           </table>
         </div>
       </main>
-    </div>
-  </body>
+  </div>
+</body>
+
 </html>

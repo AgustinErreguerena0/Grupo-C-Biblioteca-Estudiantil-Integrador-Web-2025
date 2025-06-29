@@ -14,7 +14,7 @@ class EjemplarSeeder extends Seeder
             'ubicacion' => 'Estantería A1',
             'procedencia' => 'Compra',
             'estado_material' => 'Bueno',
-            'disponibilidad' => true,
+            'disponibilidad' => 'Disponible',
             'id_proveedor' => 1,
         ]);
 
@@ -23,7 +23,7 @@ class EjemplarSeeder extends Seeder
             'ubicacion' => 'Estantería B2',
             'procedencia' => 'Donación',
             'estado_material' => 'Excelente',
-            'disponibilidad' => true,
+            'disponibilidad' => 'No disponible',
             'id_proveedor' => 2,
         ]);
     }

@@ -11,14 +11,14 @@ class MiembroSeeder extends Seeder
     public function run()
     {
         Miembro::create([
-            'nombre' => 'Carlos',
+            'nombre' => 'Pepe',
             'apellido' => 'Pérez',
-            'dni' => '12345678',
+            'dni' => '123456378',
             'correo' => 'carlos@example.com',
-            'telefono' => '1112345678',
+            'telefono' => '11123d45678',
             'direccion' => 'Calle Falsa 123',
             'tipo_miembro' => 'Estudiante',
-            'usuario' => 'carlos123',
+            'usuario' => 'carlos1s223',
             'contraseña' => Hash::make('123456'),
         ]);
     }
