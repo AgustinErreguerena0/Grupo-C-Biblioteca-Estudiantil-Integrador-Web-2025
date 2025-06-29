@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\Bibliotecario;
@@ -10,9 +11,15 @@ class BibliotecarioSeeder extends Seeder
     public function run()
     {
         Bibliotecario::create([
-            'nombre' => 'Ana',
-            'apellido' => 'González',
-            'contraseña' => Hash::make('admin123'),
+            'nombre'    => 'Ana',
+            'apellido'  => 'González',
+            'dni'       => '12345678',
+            'correo'    => 'ana.gonzalez@biblioteca.com',
+            'telefono'  => '1122334455',
+            'direccion' => 'Av. Siempre Viva 123',
+            'usuario'   => 'ana_admin',
+            'contraseña'=> Hash::make('admin123'),
         ]);
     }
 }
+
