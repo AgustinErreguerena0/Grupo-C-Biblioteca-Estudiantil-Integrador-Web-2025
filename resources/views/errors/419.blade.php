@@ -43,7 +43,7 @@
     <div class="error-container">
         <h1>Error 419 - Sesión expirada</h1>
         <p>La sesión ha expirado o el formulario ya fue enviado.</p>
-        <a href="{{ route('bibliotecario.login.form') }}">Volver al inicio de sesión</a>
+        <a href="{{ route('bibliotecario.login.form') }}">Volver a "inicio de sesión" </a>
     </div>
 </body>
 </html>
