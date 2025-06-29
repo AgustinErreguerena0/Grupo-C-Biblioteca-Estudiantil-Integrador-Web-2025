@@ -17,6 +17,11 @@ class Bibliotecario extends Authenticatable
     protected $fillable = [
         'nombre',
         'apellido',
+        'dni',
+        'correo',
+        'telefono',
+        'direccion',
+        'usuario',
         'contraseña',
     ];
 
