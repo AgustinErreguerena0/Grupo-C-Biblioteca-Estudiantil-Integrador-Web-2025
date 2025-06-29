@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Sesión expirada</title>
-    <link rel="stylesheet" href="{{ asset('style.css') }}"> 
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
     <style>
         body {
             font-family: sans-serif;
@@ -12,6 +12,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0; /* Asegúrate de quitar el margen predeterminado del body */
         }
         .error-container {
             background-color: white;
@@ -41,9 +42,9 @@
 </head>
 <body>
     <div class="error-container">
-        <h1>Error 419 - Sesión expirada</h1>
-        <p>La sesión ha expirado o el formulario ya fue enviado.</p>
-        <a href="{{ route('bibliotecario.login.form') }}">Volver a "inicio de sesión" </a>
-    </div>
+    <h1>Error 419 - Sesión expirada</h1>
+    <p>La sesión ha expirado o el formulario ya fue enviado.</p>
+    <a href="{{ route('login') }}">Volver a inicio de sesión</a>
+</div>
 </body>
 </html>
