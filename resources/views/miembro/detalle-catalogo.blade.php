@@ -22,34 +22,30 @@
     <aside class="sidebar">
       <ul class="sidebar-menu">
         <li class="sidebar-item">
-          <a href="{{ route('miembro.catalogo') }}" class="sidebar-link active">Catálogo</a> {{-- ¡CAMBIO AQUÍ! --}}
+          <a href="{{ route('miembro.catalogo') }}" class="sidebar-link active">Catálogo</a> 
         </li>
-        {{-- Puedes añadir más enlaces aquí para el miembro si los necesitas --}}
-        {{-- <li class="sidebar-item">
-            <a href="{{ url('miembro/prestamos') }}" class="sidebar-link">Mis Préstamos</a>
-        </li> --}}
+        
       </ul>
     </aside>
 
 
     <main class="main">
       <nav class="breadcrumb">
-        <a href="{{ route('miembro.catalogo') }}">Catálogo</a> &raquo; Detalle {{-- ¡CAMBIO AQUÍ! --}}
+        <a href="{{ route('miembro.catalogo') }}">Catálogo</a> &raquo; Detalle 
       </nav>
 
       <div class="d-flex justify-content-between mb-3">
         <h1 class="section-title">Detalle de Catálogo</h1>
-        <a href="{{ url('miembro/catalogo') }}" class="btn">Volver</a> {{-- Enlace correcto a la vista principal del catálogo --}}
+        <a href="{{ url('miembro/catalogo') }}" class="btn">Volver</a> 
       </div>
 
       <div class="card">
         <div class="detail-grid">
           <div class="detail-label">Title:</div>
-          <div class="detail-value">{{ $catalogoItem->title }}</div> {{-- Muestra el título dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->title }}</div> 
 
           <div class="detail-label">Creator:</div>
           <div class="detail-value">
-            {{-- Itera y muestra los nombres de los creadores separados por coma --}}
             @foreach($catalogoItem->creators as $creator)
             {{ $creator->creator }}{{ !$loop->last ? ', ' : '' }}
             @endforeach
@@ -57,35 +53,34 @@
 
           <div class="detail-label">Subject:</div>
           <div class="detail-value">
-            {{-- Itera y muestra los nombres de los temas separados por coma --}}
             @foreach($catalogoItem->subjects as $subject)
             {{ $subject->subject }}{{ !$loop->last ? ', ' : '' }}
             @endforeach
           </div>
 
           <div class="detail-label">Description:</div>
-          <div class="detail-value">{{ $catalogoItem->description }}</div> {{-- Muestra la descripción dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->description }}</div>
 
           <div class="detail-label">Publisher:</div>
-          <div class="detail-value">{{ $catalogoItem->publisher->publisher ?? 'N/A' }}</div> {{-- Muestra la editorial dinámicamente, con 'N/A' si no existe --}}
+          <div class="detail-value">{{ $catalogoItem->publisher->publisher ?? 'N/A' }}</div>
 
           <div class="detail-label">Date:</div>
-          <div class="detail-value">{{ $catalogoItem->date }}</div> {{-- Muestra la fecha dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->date }}</div> 
 
           <div class="detail-label">Type:</div>
-          <div class="detail-value">{{ $catalogoItem->type }}</div> {{-- Muestra el tipo dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->type }}</div> 
 
           <div class="detail-label">Identifier:</div>
-          <div class="detail-value">{{ $catalogoItem->identifier }}</div> {{-- Muestra el identificador dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->identifier }}</div>
 
           <div class="detail-label">Language:</div>
-          <div class="detail-value">{{ $catalogoItem->language }}</div> {{-- Muestra el idioma dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->language }}</div> 
 
           <div class="detail-label">Format:</div>
-          <div class="detail-value">{{ $catalogoItem->format }}</div> {{-- Muestra el formato dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->format }}</div> 
 
           <div class="detail-label">Rights:</div>
-          <div class="detail-value">{{ $catalogoItem->rights }}</div> {{-- Muestra los derechos dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->rights }}</div> 
         </div>
       </div>
 
@@ -103,7 +98,7 @@
             </tr>
           </thead>
           <tbody>
-            {{-- Itera sobre los ejemplares asociados al ítem de catálogo --}}
+            
             @forelse($catalogoItem->ejemplares as $ejemplar)
             <tr>
               <td>{{ $ejemplar->id_ejemplar }}</td> {{-- ID del ejemplar --}}

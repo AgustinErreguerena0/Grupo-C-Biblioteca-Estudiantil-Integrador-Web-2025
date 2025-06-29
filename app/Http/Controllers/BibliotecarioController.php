@@ -3,16 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Catalogo; // Importa el modelo Catalogo
-use App\Models\Miembro; // Importa el modelo Miembro
-use App\Models\Ejemplar; // Importa el modelo Ejemplar
-use App\Models\Creator; // Importa el modelo Creator
-use App\Models\Publisher; // Importa el modelo Publisher
-use App\Models\Subject; // Importa el modelo Subject
+use App\Models\Catalogo; 
+use App\Models\Miembro; 
 
 class BibliotecarioController extends Controller
 {
-    // Método para la vista principal del catálogo con funcionalidad de búsqueda
+    
     public function catalogo(Request $request)
     {
         $searchQuery = $request->input('search_query');
@@ -31,19 +27,19 @@ class BibliotecarioController extends Controller
                         $q->where('publisher', 'like', '%' . $searchQuery . '%');
                     });
             })
-            ->with(['creators', 'subjects', 'publisher']) // Carga ansiosa de relaciones
+            ->with(['creators', 'subjects', 'publisher']) 
             ->get();
 
         return view('bibliotecario.catalogo', compact('catalogItems'));
     }
-    // Nuevo método para la vista de miembros con funcionalidad de búsqueda
+    
     public function miembros(Request $request)
     {
-        $searchQuery = $request->input('search_query'); // Obtiene el valor del campo de búsqueda
+        $searchQuery = $request->input('search_query'); 
 
         $miembros = Miembro::query()
             ->when($searchQuery, function ($query, $searchQuery) {
-                // Aplica la búsqueda si hay un término de búsqueda
+                
                 $query->where('nombre', 'like', '%' . $searchQuery . '%')
                     ->orWhere('apellido', 'like', '%' . $searchQuery . '%')
                     ->orWhere('dni', 'like', '%' . $searchQuery . '%')
@@ -53,19 +49,18 @@ class BibliotecarioController extends Controller
                     ->orWhere('tipo_miembro', 'like', '%' . $searchQuery . '%')
                     ->orWhere('usuario', 'like', '%' . $searchQuery . '%');
             })
-            ->get(); // Ejecuta la consulta y obtiene los resultados
+            ->get(); 
 
-        // Pasa los miembros a la vista
         return view('bibliotecario.miembros', compact('miembros'));
     }
 
-    // Método para mostrar los detalles de un ítem de catálogo específico
+    
     public function detalleCatalogo($id)
     {
-        // Busca el ítem de catálogo por su ID y carga ansiosamente las relaciones necesarias
+        
         $catalogoItem = Catalogo::with(['creators', 'subjects', 'publisher', 'ejemplares'])->find($id);
 
-        // Si el ítem no se encuentra, abortar con un error 404
+    
         if (!$catalogoItem) {
             abort(404, 'Catálogo no encontrado.');
         }
@@ -73,30 +68,12 @@ class BibliotecarioController extends Controller
         return view('bibliotecario.detalle-catalogo', compact('catalogoItem'));
     }
 
-    // Métodos placeholder para las demás funcionalidades (deben ser implementados)
+    
     public function altaCatalogo()
     {
         return view('bibliotecario.alta-catalogo');
     }
 
-    public function modificarCatalogo($id)
-    {
-        $catalogoItem = Catalogo::find($id);
-        if (!$catalogoItem) {
-            abort(404, 'Catálogo no encontrado para modificar.');
-        }
-        return view('bibliotecario.modificar-catalogo', compact('catalogoItem'));
-    }
-
-    public function eliminarCatalogo($id)
-    {
-        $catalogoItem = Catalogo::find($id);
-        if ($catalogoItem) {
-            $catalogoItem->delete();
-            return redirect()->route('bibliotecario.catalogo')->with('success', 'Catálogo eliminado correctamente.');
-        }
-        return redirect()->route('bibliotecario.catalogo')->with('error', 'Catálogo no encontrado para eliminar.');
-    }
 
     public function ejemplaresCatalogo($id)
     {

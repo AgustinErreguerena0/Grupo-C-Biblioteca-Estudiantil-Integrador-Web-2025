@@ -29,7 +29,7 @@
         <a href="{{ url('bibliotecario/circulacion') }}" class="sidebar-link">Circulación</a>
       </li>
       <li class="sidebar-item">
-        <a href="{{ url('bibliotecario/catalogo') }}" class="sidebar-link active">Catálogo</a> {{-- Añadido 'active' para indicar la página actual --}}
+        <a href="{{ url('bibliotecario/catalogo') }}" class="sidebar-link active">Catálogo</a> 
       </li>
     </ul>
   </aside>
@@ -41,14 +41,13 @@
       
       <div class="d-flex justify-content-between mb-3">
         <h1 class="section-title">Detalle de Catálogo</h1>
-        <a href="{{ url('bibliotecario/catalogo') }}" class="btn">Volver</a> {{-- Enlace correcto a la vista principal del catálogo --}}
+        <a href="{{ url('bibliotecario/catalogo') }}" class="btn">Volver</a> 
       </div>
       
       <div class="card">
         <div class="detail-grid">
           <div class="detail-label">Title:</div>
-          <div class="detail-value">{{ $catalogoItem->title }}</div> {{-- Muestra el título dinámicamente --}}
-          
+          <div class="detail-value">{{ $catalogoItem->title }}</div>           
           <div class="detail-label">Creator:</div>
           <div class="detail-value">
             {{-- Itera y muestra los nombres de los creadores separados por coma --}}
@@ -66,28 +65,27 @@
           </div>
           
           <div class="detail-label">Description:</div>
-          <div class="detail-value">{{ $catalogoItem->description }}</div> {{-- Muestra la descripción dinámicamente --}}
-          
+          <div class="detail-value">{{ $catalogoItem->description }}</div>          
           <div class="detail-label">Publisher:</div>
-          <div class="detail-value">{{ $catalogoItem->publisher->publisher ?? 'N/A' }}</div> {{-- Muestra la editorial dinámicamente, con 'N/A' si no existe --}}
+          <div class="detail-value">{{ $catalogoItem->publisher->publisher ?? 'N/A' }}</div>
           
           <div class="detail-label">Date:</div>
-          <div class="detail-value">{{ $catalogoItem->date }}</div> {{-- Muestra la fecha dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->date }}</div> 
           
           <div class="detail-label">Type:</div>
-          <div class="detail-value">{{ $catalogoItem->type }}</div> {{-- Muestra el tipo dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->type }}</div> 
           
           <div class="detail-label">Identifier:</div>
-          <div class="detail-value">{{ $catalogoItem->identifier }}</div> {{-- Muestra el identificador dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->identifier }}</div>
           
           <div class="detail-label">Language:</div>
-          <div class="detail-value">{{ $catalogoItem->language }}</div> {{-- Muestra el idioma dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->language }}</div> 
           
           <div class="detail-label">Format:</div>
-          <div class="detail-value">{{ $catalogoItem->format }}</div> {{-- Muestra el formato dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->format }}</div> 
           
           <div class="detail-label">Rights:</div>
-          <div class="detail-value">{{ $catalogoItem->rights }}</div> {{-- Muestra los derechos dinámicamente --}}
+          <div class="detail-value">{{ $catalogoItem->rights }}</div> 
         </div>
       </div>
       

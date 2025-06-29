@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Biblioteca - Gestión de Miembros</title>
-  <link rel="stylesheet" href="{{ asset('style.css') }}"> {{-- ¡Importante usar asset()! --}}
+  <link rel="stylesheet" href="{{ asset('style.css') }}"> 
 </head>
 <body>
   <header class="header">
@@ -23,7 +23,7 @@
         <a href="{{ url('bibliotecario/inicio') }}" class="sidebar-link">Inicio</a>
       </li>
       <li class="sidebar-item">
-        <a href="{{ url('bibliotecario/miembros') }}" class="sidebar-link active">Miembros</a> {{-- Añadido 'active' --}}
+        <a href="{{ url('bibliotecario/miembros') }}" class="sidebar-link active">Miembros</a> 
       </li>
       <li class="sidebar-item">
         <a href="{{ url('bibliotecario/circulacion') }}" class="sidebar-link">Circulación</a>
@@ -48,7 +48,7 @@
             class="form-control"
             placeholder="Buscar miembro por nombre, apellido, DNI, correo, télefono, dirección, tipo miembro o usuario"
             name="search_query"
-            value="{{ request('search_query') }}" {{-- Mantiene el valor de búsqueda en el input --}}
+            value="{{ request('search_query') }}" 
           />
           <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
@@ -83,7 +83,7 @@
                 <td>{{ $miembro->usuario }}</td>
                 <td>
                   <a href="{{ url('bibliotecario/miembros/detalle/' . $miembro->id_miembro) }}" class="icon-btn" title="Ver">👁️</a>
-                  {{-- Faltaría implementar rutas para modificar y eliminar miembros --}}
+                  
                   <a href="{{ url('bibliotecario/miembros/modificar/' . $miembro->id_miembro) }}" class="icon-btn" title="Modificar">✏️</a>
                   <form action="{{ url('bibliotecario/miembros/eliminar/' . $miembro->id_miembro) }}" method="POST" style="display:inline;">
                       @csrf

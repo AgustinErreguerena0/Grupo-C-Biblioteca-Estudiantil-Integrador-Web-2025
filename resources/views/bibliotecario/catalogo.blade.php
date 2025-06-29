@@ -48,9 +48,9 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Buscar por title, creator, subject o publisher" {{-- Placeholder mejorado --}}
-              name="search_query" {{-- Nombre necesario para el controlador --}}
-              value="{{ request('search_query') }}" {{-- Mantiene el término de búsqueda --}} />
+              placeholder="Buscar por title, creator, subject o publisher" 
+              name="search_query"
+              value="{{ request('search_query') }}"  />
             <button type="submit" class="btn btn-primary">Buscar</button>
           </form>
         </div>
@@ -90,21 +90,21 @@
                   @endforeach
                 </td>
                 <td>{{ $item->description }}</td>
-                {{-- Acceder al nombre de la editorial a través de la relación --}}
-                <td>{{ $item->publisher->publisher ?? 'N/A' }}</td> {{-- Usamos ?? 'N/A' por si no hay publisher asociado --}}
+
+                <td>{{ $item->publisher->publisher ?? 'N/A' }}</td> 
                 <td>{{ $item->date }}</td>
                 <td>{{ $item->type }}</td>
                 <td>{{ $item->identifier }}</td>
-                <td>{{ $item->language }}</td> {{-- Cambiado de 'idioma' a 'language' según tu modelo --}}
+                <td>{{ $item->language }}</td> 
                 <td>{{ $item->format }}</td>
                 <td>{{ $item->rights }}</td>
                 <td>
                   <a href="{{ url('bibliotecario/catalogo/detalle/' . $item->id_catalogo) }}" class="icon-btn" title="Ver">👁️</a>
                   <a href="{{ url('bibliotecario/catalogo/modificar/' . $item->id_catalogo) }}" class="icon-btn" title="Modificar">✏️</a>
-                  {{-- Para eliminar, es mejor usar un formulario POST o DELETE --}}
+                
                   <form action="{{ url('bibliotecario/catalogo/eliminar/' . $item->id_catalogo) }}" method="POST" style="display:inline;">
                     @csrf
-                    @method('DELETE') {{-- Usa el método DELETE para eliminar --}}
+                    @method('DELETE') 
                     <button type="submit" class="icon-btn" title="Eliminar" onclick="return confirm('¿Estás seguro de que quieres eliminar este catálogo?')">🗑️</button>
                   </form>
                   <a href="{{ url('bibliotecario/catalogo/ejemplares/' . $item->id_catalogo) }}" class="icon-btn" title="Ejemplares">📚</a>
