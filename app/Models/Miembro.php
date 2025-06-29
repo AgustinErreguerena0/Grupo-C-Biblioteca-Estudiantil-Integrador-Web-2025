@@ -32,4 +32,8 @@ class Miembro extends Authenticatable
     {
         return $this->hasMany(Prestamo::class, 'id_miembro');
     }
+     public function getAuthPassword()
+    {
+        return $this->contraseña;
+    }
 }
