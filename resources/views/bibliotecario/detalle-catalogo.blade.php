@@ -103,6 +103,7 @@
               <th>Identificador</th>
               <th>Ubicación</th>
               <th>Procedencia</th>
+              <th>Proveedor</th>
               <th>Estado</th>
               <th>Disponibilidad</th>
             </tr>
@@ -111,15 +112,16 @@
             {{-- Itera sobre los ejemplares asociados al ítem de catálogo --}}
             @forelse($catalogoItem->ejemplares as $ejemplar)
               <tr>
-                <td>{{ $ejemplar->id_ejemplar }}</td> {{-- ID del ejemplar --}}
+                <td>{{ $ejemplar->id_publico }}</td> {{-- ID publico del ejemplar --}}
                 <td>{{ $ejemplar->ubicacion }}</td> {{-- Ubicación del ejemplar --}}
                 <td>{{ $ejemplar->procedencia }}</td> {{-- Procedencia del ejemplar --}}
+                <td>{{ $ejemplar->proveedor->proveedor ?? 'N/A' }}</td>
                 <td>{{ $ejemplar->estado_material }}</td> {{-- Estado del material del ejemplar --}}
                 <td><span class="badge {{ $ejemplar->disponibilidad == 'Disponible' ? 'available' : 'unavailable' }}">{{ $ejemplar->disponibilidad }}</span></td> {{-- Disponibilidad con badge --}}
               </tr>
             @empty
               <tr>
-                <td colspan="5" class="text-center">No hay ejemplares asociados a este ítem de catálogo.</td>
+                <td colspan="6" class="text-center">No hay ejemplares asociados a este ítem de catálogo.</td>
               </tr>
             @endforelse
           </tbody>
