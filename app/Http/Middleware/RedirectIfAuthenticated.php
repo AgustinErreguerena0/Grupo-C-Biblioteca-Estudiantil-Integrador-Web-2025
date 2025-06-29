@@ -11,20 +11,17 @@ class RedirectIfAuthenticated
     /**
      * Redirige al usuario autenticado según su guard.
      */
-    public function handle(Request $request, Closure $next, ...$guards)
+    public function handle($request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                switch ($guard) {
-                    case 'bibliotecario':
-                        return redirect()->route('bibliotecario.inicio');
-                    case 'miembro':
-                        return redirect()->route('miembro.inicio');
-                    default:
-                        return redirect('/home'); // ruta genérica o de fallback
+                // determinar ruta según guard
+                if ($guard === 'miembro') {
+                    return redirect()->route('miembro.catalogo');
                 }
+                return redirect()->route('bibliotecario.inicio');
             }
         }
 

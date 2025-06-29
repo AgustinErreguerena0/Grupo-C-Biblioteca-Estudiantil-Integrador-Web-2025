@@ -47,6 +47,13 @@ class BibliotecarioLoginController extends Controller
             return redirect()->intended(route('bibliotecario.inicio'));
         }
 
+        if (Auth::guard('miembro')->attempt($credentials)) {
+            // Si la autenticación es exitosa, obtén el usuario autenticado
+            $user = Auth::guard('miembro')->user();
+            
+            $request->session()->regenerate();
+            return redirect()->intended(route('miembro.catalogo'));
+        }
         // Si la autenticación falla (credenciales incorrectas), redirigir de vuelta al formulario con un error
         return back()->withErrors([
             'loginError' => 'Se ha ingresado incorrectamente el usuario o la contraseña.',
@@ -62,6 +69,7 @@ class BibliotecarioLoginController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('bibliotecario')->logout();
+        Auth::guard('miembro')->logout();
 
         $request->session()->invalidate();
 
