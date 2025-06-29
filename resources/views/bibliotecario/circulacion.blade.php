@@ -11,8 +11,13 @@
     <div class="container header-content">
       <div class="logo">Biblioteca Estudiantil</div>
       <nav class="nav">
-        <a href="#" class="nav-link">Cerrar Sesión</a>
-      </nav>
+  <form method="POST" action="{{ route('logout') }}">
+    @csrf
+    <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer;">
+      Cerrar Sesión
+    </button>
+  </form>
+</nav>
     </div>
   </header>
   
@@ -38,7 +43,7 @@
       
       <div class="card-grid">
         <div class="card card-action">
-          <a href="prestamo.html" class="card-link">
+          <a href="{{ url('bibliotecario/prestamo') }}" class="card-link">
             <div class="card-icon">📚</div>
             <h2 class="card-title">Préstamos</h2>
             <p class="card-description">Gestión de préstamos de materiales</p>
@@ -46,7 +51,7 @@
         </div>
         
         <div class="card card-action">
-          <a href="devolucion.html" class="card-link">
+          <a href="{{ url('bibliotecario/devolucion') }}" class="card-link">
             <div class="card-icon">↩️</div>
             <h2 class="card-title">Devoluciones</h2>
             <p class="card-description">Registro de devoluciones de materiales</p>
