@@ -42,8 +42,27 @@
       <main class="main">
         <h1 class="section-title">Nuevo Miembro</h1>
 
+        {{-- Mensajes de éxito --}}
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        {{-- Errores de validación --}}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="card">
-          <form action="#" method="POST">
+          <form action="{{ route('bibliotecario.miembro.alta') }}" method="POST">
+            @csrf
             <div class="form-group">
               <label for="nombre" class="form-label">Nombre *</label>
               <input
@@ -52,6 +71,7 @@
                 name="nombre"
                 class="form-control"
                 required
+                value="{{ old('nombre') }}" {{-- Para mantener el valor si hay error --}}
               />
             </div>
 
@@ -63,6 +83,7 @@
                 name="apellido"
                 class="form-control"
                 required
+                value="{{ old('apellido') }}"
               />
             </div>
 
@@ -74,6 +95,7 @@
                 name="dni"
                 class="form-control"
                 required
+                value="{{ old('dni') }}"
               />
             </div>
 
@@ -87,6 +109,7 @@
                 name="correo"
                 class="form-control"
                 required
+                value="{{ old('correo') }}"
               />
             </div>
 
@@ -98,6 +121,7 @@
                 name="telefono"
                 class="form-control"
                 required
+                value="{{ old('telefono') }}"
               />
             </div>
 
@@ -109,16 +133,17 @@
                 name="direccion"
                 class="form-control"
                 required
+                value="{{ old('direccion') }}"
               />
             </div>
 
             <div class="form-group">
               <label for="tipo" class="form-label">Tipo de miembro *</label>
-              <select id="tipo" name="tipo" class="form-control" required>
+              <select id="tipo" name="tipo_miembro" class="form-control" required>
                 <option value="">Seleccionar...</option>
-                <option value="Estudiante">Estudiante</option>
-                <option value="Profesor">Profesor</option>
-                <option value="Investigador">Investigador</option>
+                <option value="Estudiante" {{ old('tipo_miembro') == 'Estudiante' ? 'selected' : '' }}>Estudiante</option>
+                <option value="Profesor" {{ old('tipo_miembro') == 'Profesor' ? 'selected' : '' }}>Profesor</option>
+                <option value="Investigador" {{ old('tipo_miembro') == 'Investigador' ? 'selected' : '' }}>Investigador</option>
               </select>
             </div>
 
@@ -130,12 +155,13 @@
                 name="usuario"
                 class="form-control"
                 required
+                value="{{ old('usuario') }}"
               />
             </div>
 
             <div class="form-group text-center mt-3">
               <button type="submit" class="btn btn-primary">Guardar</button>
-              <a href="miembros.html" class="btn btn-primary">Cancelar</a>
+              <a href="{{ url('bibliotecario/miembros') }}" class="btn btn-primary">Cancelar</a>
             </div>
           </form>
         </div>

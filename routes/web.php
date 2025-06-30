@@ -22,7 +22,10 @@ Route::prefix('bibliotecario')
     ->middleware('auth:bibliotecario') // Apply bibliotecario authentication
     ->group(function () {  
     Route::view('inicio', 'bibliotecario.inicio')->name('bibliotecario.inicio');
-    Route::view('alta-miembro', 'bibliotecario.alta-miembro')->name('bibliotecario.alta-miembro');
+    Route::get('alta-miembro', function () {
+        return view('bibliotecario.alta-miembro');
+    })->name('bibliotecario.alta-miembro');
+    Route::post('alta-miembro', [BibliotecarioController::class, 'altaMiembro'])->name('bibliotecario.miembro.alta'); // ¡NOMBRE DE RUTA CAMBIADO!
     Route::view('circulacion', 'bibliotecario.circulacion')->name('bibliotecario.circulacion');
     Route::view('devolucion', 'bibliotecario.devolucion')->name('bibliotecario.devolucion');
     Route::view('ejemplares', 'bibliotecario.ejemplares')->name('bibliotecario.ejemplares');

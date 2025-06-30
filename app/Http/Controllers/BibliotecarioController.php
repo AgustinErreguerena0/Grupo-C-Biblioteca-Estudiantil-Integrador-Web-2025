@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Catalogo;
 use App\Models\Miembro;
-use App\Models\Proveedor; // <--- Añadir esta línea
+use App\Models\Proveedor;
 use App\Models\Creator;
 use App\Models\Subject;
 use App\Models\Publisher;
-use Illuminate\Validation\Rule;      // ← Para la validación de in: …
-use App\Models\Ejemplar;            // ← Para crear el nuevo ejemplar
+use Illuminate\Validation\Rule;
+use App\Models\Ejemplar;
+use Illuminate\Support\Facades\Hash;
 
 
 class BibliotecarioController extends Controller
@@ -146,6 +147,47 @@ class BibliotecarioController extends Controller
             ->get();
 
         return view('bibliotecario.miembros', compact('miembros'));
+    }
+
+    // Método para almacenar un nuevo miembro
+    public function altaMiembro(Request $request)
+    {
+        $messages = [
+            'nombre.required'       => 'El nombre es obligatorio.',
+            'apellido.required'     => 'El apellido es obligatorio.',
+            'dni.required'          => 'El DNI es obligatorio.',
+            'dni.unique'            => 'Ya existe un miembro con este DNI.',
+            'correo.required'       => 'El correo electrónico es obligatorio.',
+            'correo.email'          => 'El formato del correo electrónico no es válido.',
+            'correo.unique'         => 'Ya existe un miembro con este correo electrónico.',
+            'telefono.required'     => 'El teléfono es obligatorio.',
+            'direccion.required'    => 'La dirección es obligatoria.',
+            'tipo_miembro.required' => 'El tipo de miembro es obligatorio.',
+            'tipo_miembro.in'       => 'El tipo de miembro seleccionado no es válido.',
+            'usuario.required'      => 'El usuario es obligatorio.',
+            'usuario.unique'        => 'Ya existe un miembro con este usuario.',
+        ];
+
+        $validatedData = $request->validate([
+            'nombre'       => 'required|string|max:255',
+            'apellido'     => 'required|string|max:255',
+            'dni'          => 'required|string|max:20|unique:miembros,dni',
+            'correo'       => 'required|string|email|max:255|unique:miembros,correo',
+            'telefono'     => 'required|string|max:255',
+            'direccion'    => 'required|string|max:255',
+            'tipo_miembro' => ['required', Rule::in(['Estudiante', 'Profesor', 'Investigador'])],
+            'usuario'      => 'required|string|max:255|unique:miembros,usuario',
+        ], $messages);
+
+        // La contraseña será el DNI hasheado
+        $validatedData['contraseña'] = Hash::make($request->dni);
+
+        Miembro::create($validatedData);
+
+        // CAMBIO AQUÍ: Redirige de vuelta a la misma página del formulario
+        return redirect()
+            ->route('bibliotecario.alta-miembro') // Usa el nombre de la ruta GET para el formulario
+            ->with('success', 'Miembro agregado correctamente.');
     }
 
 

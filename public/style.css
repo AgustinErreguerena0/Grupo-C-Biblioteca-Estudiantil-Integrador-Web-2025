@@ -212,6 +212,11 @@ a {
   border: 1px solid rgba(220, 53, 69, 0.2);
   color: var(--danger);
 }
+.alert-success{
+   background-color: rgba(53, 220, 70, 0.1);
+  border: 1px solid rgba(53, 220, 70, 0.2);
+  color: var(--success);
+}
 
 .error {
   color: red;
