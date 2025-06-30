@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bibliotecario; 
+use App\Models\Miembro; 
 
 class BibliotecarioLoginController extends Controller
 {
@@ -38,26 +39,22 @@ class BibliotecarioLoginController extends Controller
             'password' => $request->contrasena,
         ];
 
-        // Intentar autenticar al bibliotecario
+           // Attempt to authenticate 'bibliotecario'
         if (Auth::guard('bibliotecario')->attempt($credentials)) {
-            // Si la autenticación es exitosa, obtén el usuario autenticado
-            $user = Auth::guard('bibliotecario')->user();
-            
             $request->session()->regenerate();
             return redirect()->intended(route('bibliotecario.inicio'));
         }
 
+        // Attempt to authenticate 'miembro'
         if (Auth::guard('miembro')->attempt($credentials)) {
-            // Si la autenticación es exitosa, obtén el usuario autenticado
-            $user = Auth::guard('miembro')->user();
-            
             $request->session()->regenerate();
             return redirect()->intended(route('miembro.catalogo'));
         }
+        
          // Si la autenticación falla para ambos, redirige explícitamente a la página de inicio de sesión
-    return redirect()->route('login')->withErrors([ // Cambia back() a route('login') explícito
-        'loginError' => 'Se ha ingresado incorrectamente el usuario o la contraseña.',
-    ])->onlyInput('usuario'); //
+    return redirect()->route('login')->withErrors([
+            'loginError' => 'Se ha ingresado incorrectamente el usuario o la contraseña.',
+        ])->onlyInput('usuario');
     }
 
     /**
@@ -75,6 +72,6 @@ class BibliotecarioLoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/'); // Redirigir a la página principal de login
+        return redirect()->route('login');  // Redirigir a la página principal de login
     }
 }

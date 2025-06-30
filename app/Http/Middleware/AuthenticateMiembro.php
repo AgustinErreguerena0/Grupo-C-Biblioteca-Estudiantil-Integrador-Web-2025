@@ -10,8 +10,8 @@ class AuthenticateMiembro
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::guard('miembro')->check()) {
-            return redirect()->route('login');
+        if (!Auth::guard('miembro')->check()) { //
+            return redirect()->route('login'); //
         }
 
         return $next($request);
