@@ -98,6 +98,7 @@
               <th>Identificador</th>
               <th>Ubicación</th>
               <th>Procedencia</th>
+              <th>Proveedor</th>
               <th>Estado</th>
               <th>Disponibilidad</th>
             </tr>
