@@ -54,10 +54,10 @@ class BibliotecarioLoginController extends Controller
             $request->session()->regenerate();
             return redirect()->intended(route('miembro.catalogo'));
         }
-        // Si la autenticación falla (credenciales incorrectas), redirigir de vuelta al formulario con un error
-        return back()->withErrors([
-            'loginError' => 'Se ha ingresado incorrectamente el usuario o la contraseña.',
-        ])->onlyInput('usuario');
+         // Si la autenticación falla para ambos, redirige explícitamente a la página de inicio de sesión
+    return redirect()->route('login')->withErrors([ // Cambia back() a route('login') explícito
+        'loginError' => 'Se ha ingresado incorrectamente el usuario o la contraseña.',
+    ])->onlyInput('usuario'); //
     }
 
     /**
