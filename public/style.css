@@ -213,6 +213,12 @@ a {
   color: var(--danger);
 }
 
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
 /* Utilities */
 .text-center {
   text-align: center;
@@ -615,4 +621,3 @@ select.form-control:focus {
     margin-left: 0;
   }
 }
-

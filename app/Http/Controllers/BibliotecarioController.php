@@ -6,9 +6,101 @@ use Illuminate\Http\Request;
 use App\Models\Catalogo;
 use App\Models\Miembro;
 use App\Models\Proveedor; // <--- Añadir esta línea
+use App\Models\Creator;
+use App\Models\Subject;
+use App\Models\Publisher;
+use Illuminate\Validation\Rule;      // ← Para la validación de in: …
+use App\Models\Ejemplar;            // ← Para crear el nuevo ejemplar
+
 
 class BibliotecarioController extends Controller
 {
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // GET: muestra el formulario con listas para selects múltiples
+    public function altaCatalogo()
+    {
+        $publishers = Publisher::all();
+        $creators   = Creator::all();
+        $subjects   = Subject::all();
+
+        return view('bibliotecario.alta-catalogo', compact('publishers', 'creators', 'subjects'));
+    }
+
+    // POST: procesa el alta con sync de muchos a muchos
+    public function storeCatalogo(Request $request)
+    {
+
+        $messages = [
+        'creators.required' => 'Debes elegir al menos un autor.',
+        ];
+
+        $data = $request->validate([
+            'title'            => 'required|string|max:100',
+            'description'      => 'nullable|string',
+            'date'             => 'nullable|date',
+            'identifier'       => 'nullable|string|max:100|unique:catalogos,identifier',
+            'language'         => 'nullable|string|max:100',
+            'format'           => 'nullable|string|max:100',
+            'rights'           => 'nullable|string|max:100',
+            'type'             => 'required|string|max:100',
+            'id_bibliotecario' => 'required|integer|exists:bibliotecarios,id_bibliotecario',
+            'id_publisher'     => 'nullable|integer|exists:publishers,id_publisher',
+            'creators' => 'required|array|min:1',
+            'creators.*'       => 'integer|exists:creators,id_creator',
+            'subjects'         => 'nullable|array',
+            'subjects.*'       => 'integer|exists:subjects,id_subject',
+        ], $messages);
+
+        // Creamos el catálogo
+        $catalogo = Catalogo::create($data);
+
+        // Sincronizamos las relaciones muchos a muchos
+        $catalogo->creators()->sync($request->input('creators', []));
+        $catalogo->subjects()->sync($request->input('subjects', []));
+
+        return redirect()
+            ->route('bibliotecario.catalogo')
+            ->with('success', 'Catálogo creado correctamente.');
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public function storeEjemplar(Request $request, $id)
+    {
+        // Mensajes personalizados para que quede igual que validaciones anteriores
+        $messages = [
+            'id_publico.required'   => 'El identificador público es obligatorio.',
+            'id_publico.unique'     => 'Este identificador ya existe.',
+            'ubicacion.required'    => 'La ubicación es obligatoria.',
+            'procedencia.required'  => 'La procedencia es obligatoria.',
+            'estado_material.required' => 'Debes elegir un estado.',
+            'disponibilidad.required'  => 'Debes elegir la disponibilidad.',
+            'id_proveedor.integer'     => 'Proveedor inválido.',
+            'id_proveedor.exists'      => 'El proveedor seleccionado no existe.',
+        ];
+
+        $data = $request->validate([
+            'id_publico'      => 'required|string|max:100|unique:ejemplares,id_publico',
+            'ubicacion'       => 'required|string',
+            'procedencia'     => 'required|string',
+            'estado_material' => ['required', Rule::in(['Bueno','Daño leve','Daño medio','Indeterminado'])],
+            'disponibilidad'  => ['required', Rule::in(['Disponible','No disponible'])],
+            'id_proveedor'    => 'nullable|integer|exists:proveedores,id_proveedor',
+        ], $messages);
+
+        // Asociar con el catálogo
+        $data['id_catalogo'] = $id;
+
+        \App\Models\Ejemplar::create($data);
+
+        return redirect()
+            ->route('bibliotecario.catalogo.ejemplares', $id)
+            ->with('success', 'Ejemplar agregado correctamente.');
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public function catalogo(Request $request)
     {
@@ -70,13 +162,6 @@ class BibliotecarioController extends Controller
 
         return view('bibliotecario.detalle-catalogo', compact('catalogoItem'));
     }
-
-
-    public function altaCatalogo()
-    {
-        return view('bibliotecario.alta-catalogo');
-    }
-
 
     public function ejemplaresCatalogo($id)
     {
