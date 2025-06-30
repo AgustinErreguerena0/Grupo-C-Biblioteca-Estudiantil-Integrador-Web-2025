@@ -49,12 +49,20 @@ class Handler extends ExceptionHandler
      * @throws \Throwable
      */
     public function render($request, Throwable $e)
-{
-    if ($e instanceof TokenMismatchException) {
-        return redirect()
-            ->route('session.expired'); // Redirige a una ruta específica
-    }
+    {
+        if ($e instanceof TokenMismatchException) {
+            // Log out all guards before redirecting to the session expired page
+            Auth::guard('bibliotecario')->logout();
+            Auth::guard('miembro')->logout();
 
-    return parent::render($request, $e);
-}
+            // Invalidate the session and regenerate the token
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return redirect()
+                ->route('session.expired'); // Redirige a una ruta específica
+        }
+
+        return parent::render($request, $e);
+    }
 }
