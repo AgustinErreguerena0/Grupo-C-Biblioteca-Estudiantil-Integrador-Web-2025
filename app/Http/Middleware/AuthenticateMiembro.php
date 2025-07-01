@@ -5,16 +5,16 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log; // Add this line
+use Illuminate\Support\Facades\Log; 
 
 class AuthenticateMiembro
 {
     public function handle(Request $request, Closure $next)
     {
-        Log::info("AuthenticateMiembro: Checking if miembro is authenticated."); // Add this line
+        Log::info("AuthenticateMiembro: Checking if miembro is authenticated.");
 
         if (!Auth::guard('miembro')->check()) {
-            Log::info("AuthenticateMiembro: Miembro not authenticated, redirecting to login."); // Add this line
+            Log::info("AuthenticateMiembro: Miembro not authenticated, redirecting to login.");
             return redirect()->route('login');
         }
 

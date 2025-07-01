@@ -45,11 +45,11 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth.bibliotecario' => \App\Http\Middleware\AuthenticateBibliotecario::class, // añadido
-        'auth.miembro' => \App\Http\Middleware\AuthenticateMiembro::class, // añadido
+        'auth.bibliotecario' => \App\Http\Middleware\AuthenticateBibliotecario::class, 
+        'auth.miembro' => \App\Http\Middleware\AuthenticateMiembro::class, 
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class, // <- este es el que creaste
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class, 
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 }
