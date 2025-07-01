@@ -29,7 +29,7 @@ class BibliotecarioController extends Controller
         return view('bibliotecario.alta-catalogo', compact('publishers', 'creators', 'subjects'));
     }
 
-    // POST: procesa el alta con sync de muchos a muchos, con chequeo anti-duplicados
+   
     public function storeCatalogo(Request $request)
     {
         $messages = [

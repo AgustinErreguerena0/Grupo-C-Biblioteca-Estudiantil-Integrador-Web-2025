@@ -32,9 +32,6 @@
     </aside>
 
     <main class="main">
-      <nav class="breadcrumb">
-        <a href="{{ url('bibliotecario/catalogo') }}">Catálogo</a> &raquo; Gestión de Ejemplares
-      </nav>
 
       @if(session('success'))
         <div class="alert alert-success">

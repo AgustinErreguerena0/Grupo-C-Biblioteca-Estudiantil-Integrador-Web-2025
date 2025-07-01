@@ -40,9 +40,6 @@
   </aside>
     
     <main class="main">
-      <nav class="breadcrumb">
-        <a href="{{ url('bibliotecario/catalogo') }}">Catálogo</a> &raquo; Detalle
-      </nav>
       
       <div class="d-flex justify-content-between mb-3">
         <h1 class="section-title">Detalle de Catálogo</h1>

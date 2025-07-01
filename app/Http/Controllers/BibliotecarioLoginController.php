@@ -10,22 +10,13 @@ use App\Models\Miembro;
 
 class BibliotecarioLoginController extends Controller
 {
-    /**
-     * Muestra el formulario de inicio de sesión para bibliotecarios.
-     *
-     * @return \Illuminate\View\View
-     */
+
     public function showLoginForm()
     {
-        return view('index'); // Tu vista de login es index.blade.php
+        return view('index'); 
     }
 
-    /**
-     * Maneja el intento de inicio de sesión de un bibliotecario.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+   
     public function login(Request $request)
     {
         $request->validate([
@@ -39,13 +30,13 @@ class BibliotecarioLoginController extends Controller
             'password' => $request->contrasena,
         ];
 
-           // Attempt to authenticate 'bibliotecario'
+         
         if (Auth::guard('bibliotecario')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended(route('bibliotecario.inicio'));
         }
 
-        // Attempt to authenticate 'miembro'
+        
         if (Auth::guard('miembro')->attempt($credentials)) {
             $request->session()->regenerate();
             return redirect()->intended(route('miembro.catalogo'));
@@ -57,12 +48,6 @@ class BibliotecarioLoginController extends Controller
         ])->onlyInput('usuario');
     }
 
-    /**
-     * Cierra la sesión del bibliotecario.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function logout(Request $request)
     {
         Auth::guard('bibliotecario')->logout();

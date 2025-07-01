@@ -15,11 +15,11 @@ class MiembroSeeder extends Seeder
             'apellido' => 'Pérez',
             'dni' => '123456378',
             'correo' => 'carlos@example.com',
-            'telefono' => '11123d45678',
+            'telefono' => '1112345678',
             'direccion' => 'Calle Falsa 123',
             'tipo_miembro' => 'Estudiante',
-            'usuario' => 'carlos1s223',
-            'contraseña' => Hash::make('123456'),
+            'usuario' => 'carloss223',
+            'contraseña' => Hash::make('123456378'),
         ]);
     }
 }

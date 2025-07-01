@@ -44,7 +44,7 @@
       
       <div class="card">
         <h2>Resumen del sistema</h2>
-        <p>Aquí irían estadísticas o información relevante sobre préstamos, devoluciones, etc.</p>
+        <p>...</p>
       </div>
     </main>
   </div>
