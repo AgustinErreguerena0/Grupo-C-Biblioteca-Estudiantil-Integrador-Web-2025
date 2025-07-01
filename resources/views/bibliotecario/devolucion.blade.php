@@ -19,13 +19,13 @@
     <div class="container header-content">
       <div class="logo">Biblioteca Estudiantil</div>
       <nav class="nav">
-        <form method="POST" action="{{ route('logout') }}">
-          @csrf
-          <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer;">
-            Cerrar Sesión
-          </button>
-        </form>
-      </nav>
+  <form method="POST" action="{{ route('logout') }}">
+    @csrf
+        <button type="submit" class="btn-cerrar-sesion" >
+      Cerrar Sesión
+    </button>
+  </form>
+</nav>
     </div>
   </header>
 
