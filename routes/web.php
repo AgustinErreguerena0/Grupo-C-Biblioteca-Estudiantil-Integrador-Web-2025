@@ -14,12 +14,12 @@ Route::middleware('guest:bibliotecario,miembro')->group(function () {
 
 // Logout protegido
 Route::post('/logout', [BibliotecarioLoginController::class, 'logout'])
-    ->middleware('auth:bibliotecario,miembro') // Protect logout with both guards
+    ->middleware('auth:bibliotecario,miembro')
     ->name('logout');
 
 // Rutas protegidas solo para bibliotecarios autenticados
 Route::prefix('bibliotecario')
-    ->middleware('auth:bibliotecario') // Apply bibliotecario authentication
+    ->middleware('auth:bibliotecario') 
     ->group(function () {  
     Route::view('inicio', 'bibliotecario.inicio')->name('bibliotecario.inicio');
     Route::get('alta-miembro', function () {
