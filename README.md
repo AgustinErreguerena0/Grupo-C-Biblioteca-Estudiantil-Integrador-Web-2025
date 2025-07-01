@@ -203,4 +203,4 @@ Abra el navegador y navegue a:
 ```
 https://127.0.0.1:8000
 ```
-Debería ver la pantalla de inicio de sesión del sistema.
+Debería poder ver la pantalla de inicio de sesión del sistema.
