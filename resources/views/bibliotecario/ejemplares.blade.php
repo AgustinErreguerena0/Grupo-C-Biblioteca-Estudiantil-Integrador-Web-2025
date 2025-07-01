@@ -36,6 +36,12 @@
         <a href="{{ url('bibliotecario/catalogo') }}">Catálogo</a> &raquo; Gestión de Ejemplares
       </nav>
 
+      @if(session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div>
+      @endif
+
       <div class="d-flex justify-content-between mb-3">
         <h1 class="section-title">Gestión de Ejemplares</h1>
         <a href="{{ url('bibliotecario/catalogo') }}" class="btn">Volver</a>
@@ -90,7 +96,7 @@
       {{-- === Formulario de nuevo ejemplar === --}}
       <div class="card">
         <h3>Nuevo Ejemplar</h3>
-        <form action="{{ route('bibliotecario.ejemplar.store', $catalogoItem->id_catalogo) }}" method="POST">
+        <form id="nuevoEjemplarForm" action="{{ route('bibliotecario.ejemplar.store', $catalogoItem->id_catalogo) }}" method="POST">
           @csrf
 
           <div class="form-group">
@@ -107,7 +113,11 @@
 
           <div class="form-group">
             <label for="procedencia" class="form-label">Procedencia*</label>
-            <input type="text" id="procedencia" name="procedencia" class="form-control" value="{{ old('procedencia') }}" required>
+            <select id="procedencia" name="procedencia" class="form-control" required>
+              <option value="Compra"   {{ old('procedencia', 'Compra') == 'Compra' ? 'selected' : '' }}>Compra</option>
+              <option value="Canje"    {{ old('procedencia') == 'Canje' ? 'selected' : '' }}>Canje</option>
+              <option value="Donación" {{ old('procedencia') == 'Donación' ? 'selected' : '' }}>Donación</option>
+            </select>
             @error('procedencia')<div class="error">{{ $message }}</div>@enderror
           </div>
 
@@ -130,11 +140,10 @@
           <div class="form-group">
             <label for="estado_material" class="form-label">Estado del ejemplar*</label>
             <select id="estado_material" name="estado_material" class="form-control" required>
-              <option value="">-- Sin selección --</option>
-              <option value="Bueno"         {{ old('estado_material')=='Bueno'?'selected':'' }}>En correcto estado</option>
-              <option value="Daño leve"     {{ old('estado_material')=='Daño leve'?'selected':'' }}>Daño leve</option>
-              <option value="Daño medio"    {{ old('estado_material')=='Daño medio'?'selected':'' }}>Daño medio</option>
-              <option value="Indeterminado" {{ old('estado_material')=='Indeterminado'?'selected':'' }}>Indeterminado</option>
+              <option value="Bueno"      {{ old('estado_material')=='Bueno'?'selected':'' }}>En correcto estado</option>
+              <option value="Daño leve"  {{ old('estado_material')=='Daño leve'?'selected':'' }}>Daño leve</option>
+              <option value="Daño medio" {{ old('estado_material')=='Daño medio'?'selected':'' }}>Daño medio</option>
+              <option value="Indeterminado" selected>Indeterminado</option>
             </select>
             @error('estado_material')<div class="error">{{ $message }}</div>@enderror
           </div>
@@ -142,15 +151,13 @@
           <div class="form-group">
             <label for="disponibilidad" class="form-label">Disponibilidad*</label>
             <select id="disponibilidad" name="disponibilidad" class="form-control" required>
-              <option value="">-- Sin selección --</option>
-              <option value="Disponible"    {{ old('disponibilidad')=='Disponible'?'selected':'' }}>Disponible</option>
+              <option value="Disponible"    selected>Disponible</option>
               <option value="No disponible" {{ old('disponibilidad')=='No disponible'?'selected':'' }}>No disponible</option>
             </select>
             @error('disponibilidad')<div class="error">{{ $message }}</div>@enderror
           </div>
 
           <input type="hidden" name="id_catalogo" value="{{ $catalogoItem->id_catalogo }}">
-
           <button type="submit" class="btn btn-primary">Guardar Cambios</button>
         </form>
       </div>
@@ -197,5 +204,22 @@
       </div>
     </main>
   </div>
+
+  <script>
+    // Validación para que no quede "Indeterminado"
+    document.getElementById('nuevoEjemplarForm').addEventListener('submit', function(e) {
+      if (document.getElementById('estado_material').value === 'Indeterminado') {
+        e.preventDefault();
+        alert('Por favor, seleccione un estado de material distinto a "Indeterminado".');
+      }
+    });
+
+    // Si el controlador devolvió session('success'), reseteamos el formulario al cargar
+    @if(session('success'))
+      window.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('nuevoEjemplarForm').reset();
+      });
+    @endif
+  </script>
 </body>
 </html>

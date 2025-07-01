@@ -11,13 +11,13 @@
     <div class="container header-content">
       <div class="logo">Biblioteca Estudiantil</div>
       <nav class="nav">
-  <form method="POST" action="{{ route('logout') }}">
-    @csrf
-    <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer;">
-      Cerrar Sesión
-    </button>
-  </form>
-</nav>
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button type="submit" class="nav-link" style="background:none; border:none; cursor:pointer;">
+            Cerrar Sesión
+          </button>
+        </form>
+      </nav>
     </div>
   </header>
 
@@ -38,6 +38,13 @@
       </div>
 
       <div class="card">
+        {{-- Mensaje de duplicado --}}
+        @if($errors->has('duplicate'))
+          <div class="error mb-3">
+            {{ $errors->first('duplicate') }}
+          </div>
+        @endif
+
         <form action="{{ route('bibliotecario.catalogo.store') }}" method="POST">
           @csrf
 
@@ -143,6 +150,7 @@
 
           {{-- Bibliotecario oculto --}}
           <input type="hidden" name="id_bibliotecario" value="{{ auth()->user()->id_bibliotecario ?? 1 }}">
+
           <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
       </div>

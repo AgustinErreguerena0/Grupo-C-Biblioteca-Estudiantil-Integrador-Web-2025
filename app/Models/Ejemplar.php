@@ -17,8 +17,9 @@ class Ejemplar extends Model
 
     public function catalogo()
     {
-        return $this->belongsTo(Catalogo::class, 'id_ejemplar');
+        return $this->belongsTo(Catalogo::class, 'id_catalogo');
     }
+
 
     public function proveedor()
     {

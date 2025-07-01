@@ -31,6 +31,14 @@ Route::prefix('bibliotecario')
     Route::view('ejemplares', 'bibliotecario.ejemplares')->name('bibliotecario.ejemplares');
     Route::get('miembros', [BibliotecarioController::class, 'miembros'])->name('bibliotecario.miembros');
     Route::view('prestamo', 'bibliotecario.prestamo')->name('bibliotecario.prestamo');
+    
+    // Rutas de préstamos
+    Route::post('prestamo/buscar-miembro', [BibliotecarioController::class, 'buscarMiembro']) ->name('prestamo.buscarMiembro');
+    Route::post('prestamo/buscar-ejemplar', [BibliotecarioController::class, 'buscarEjemplar']) ->name('prestamo.buscarEjemplar');
+    Route::post('prestamo/guardar', [BibliotecarioController::class, 'guardarPrestamo']) ->name('prestamo.guardar');
+
+    // Ruta de devoluciones
+    Route::post('prestamo/devolver', [BibliotecarioController::class, 'procesarDevolucion'])->name('prestamo.devolver');
 
     // Rutas de catálogo
     Route::get('catalogo', [BibliotecarioController::class, 'catalogo'])->name('bibliotecario.catalogo');
